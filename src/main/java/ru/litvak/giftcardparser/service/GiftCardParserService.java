@@ -4,6 +4,6 @@ import jakarta.validation.Valid;
 import ru.litvak.giftcardparser.model.request.SourceLinkRequest;
 import ru.litvak.giftcardparser.model.responce.GiftCardResponse;
 
-public interface GiftCardService {
+public interface GiftCardParserService {
     GiftCardResponse parse(@Valid SourceLinkRequest request);
 }
