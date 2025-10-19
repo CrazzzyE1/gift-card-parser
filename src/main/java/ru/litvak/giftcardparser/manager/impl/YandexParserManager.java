@@ -8,7 +8,6 @@ import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
 import ru.litvak.giftcardparser.enumerated.ProviderType;
 import ru.litvak.giftcardparser.manager.ParserManager;
-import ru.litvak.giftcardparser.model.request.SourceLinkRequest;
 import ru.litvak.giftcardparser.model.responce.GiftCardResponse;
 
 import java.io.IOException;
@@ -27,7 +26,7 @@ public class YandexParserManager implements ParserManager {
     public GiftCardResponse parse(String cardUrl) {
         String title = "Не найдено";
         String link = "Не найдено";
-        String description = "Не найдено";
+//        String description = "Не найдено";
         double price = 0;
         byte[] img = null;
 
@@ -74,21 +73,21 @@ public class YandexParserManager implements ParserManager {
                 }
             }
 
-            Element descriptionContainer = doc.select("div[id=product-description]").first();
-            if (descriptionContainer != null) {
-                Element descriptionElement = descriptionContainer.select(
-                        "div[class=ds-text ds-text_weight_reg ds-text_typography_text xt_vL ds-text_text_loose ds-text_text_reg]"
-                ).first();
-                if (descriptionElement != null) {
-                    description = descriptionElement.text();
-                }
-
-            }
+//            Element descriptionContainer = doc.select("div[id=product-description]").first();
+//            if (descriptionContainer != null) {
+//                Element descriptionElement = descriptionContainer.select(
+//                        "div[class=ds-text ds-text_weight_reg ds-text_typography_text xt_vL ds-text_text_loose ds-text_text_reg]"
+//                ).first();
+//                if (descriptionElement != null) {
+//                    description = descriptionElement.text();
+//                }
+//
+//            }
         } catch (IOException e) {
             log.info("Ooops");
             e.printStackTrace();
         }
-        return new GiftCardResponse(title, link, price, description, img);
+        return new GiftCardResponse(title, link, price, null, img);
     }
 
     @Override
