@@ -26,7 +26,6 @@ public class YandexParserManager implements ParserManager {
     public GiftCardResponse parse(String cardUrl) {
         String title = "Не найдено";
         String link = "Не найдено";
-//        String description = "Не найдено";
         double price = 0;
         byte[] img = null;
 
@@ -43,7 +42,7 @@ public class YandexParserManager implements ParserManager {
                 title = productCardTitle.text();
             }
 
-            Element image = doc.select("img[alt=%s]".formatted(title)).first();
+            Element image = doc.select("img[src*=/orig]").first();
             if (image != null) {
                 link = image.attr("src");
                 try {
@@ -55,13 +54,16 @@ public class YandexParserManager implements ParserManager {
 
                     img = Jsoup.connect(imageUrl)
                             .ignoreContentType(true)
-                            .userAgent("Mozilla/5.0...")
+                            .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                                    + "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
                             .timeout(10000)
                             .execute()
                             .bodyAsBytes();
                 } catch (Exception e) {
                     log.warn("Не удалось загрузить изображение: {}", link, e);
                 }
+            } else {
+                log.warn("Изображение с /orig не найдено для {}", cardUrl);
             }
 
             Element priceContainer = doc.select("span[data-auto=snippet-price-current][class=ds-valueLine]").first();
@@ -72,17 +74,6 @@ public class YandexParserManager implements ParserManager {
                     price = Double.parseDouble(priceNumber.text().trim().replace(" ", ""));
                 }
             }
-
-//            Element descriptionContainer = doc.select("div[id=product-description]").first();
-//            if (descriptionContainer != null) {
-//                Element descriptionElement = descriptionContainer.select(
-//                        "div[class=ds-text ds-text_weight_reg ds-text_typography_text xt_vL ds-text_text_loose ds-text_text_reg]"
-//                ).first();
-//                if (descriptionElement != null) {
-//                    description = descriptionElement.text();
-//                }
-//
-//            }
         } catch (IOException e) {
             log.info("Ooops");
             e.printStackTrace();
