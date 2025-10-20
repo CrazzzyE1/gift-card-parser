@@ -6,7 +6,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
-import ru.litvak.giftcardparser.enumerated.ProviderType;
 import ru.litvak.giftcardparser.manager.ParserManager;
 import ru.litvak.giftcardparser.model.responce.GiftCardResponse;
 
@@ -14,13 +13,12 @@ import java.io.IOException;
 import java.net.URL;
 
 import static ru.litvak.giftcardparser.enumerated.ProviderType.YANDEX;
+import static ru.litvak.giftcardparser.enumerated.ProviderType.YANDEX_MOBILE;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class YandexParserManager implements ParserManager {
-
-    private static final ProviderType TYPE = YANDEX;
 
     @Override
     public GiftCardResponse parse(String cardUrl) {
@@ -83,6 +81,6 @@ public class YandexParserManager implements ParserManager {
 
     @Override
     public boolean isSupport(String url) {
-        return url.startsWith(TYPE.getDomain());
+        return url.startsWith(YANDEX.getDomain()) || url.startsWith(YANDEX_MOBILE.getDomain());
     }
 }
