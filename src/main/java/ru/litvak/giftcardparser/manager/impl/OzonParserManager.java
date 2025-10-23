@@ -37,7 +37,7 @@ public class OzonParserManager implements ParserManager {
             new WebDriverWait(webDriver, Duration.ofSeconds(10))
                     .until(driver -> ((JavascriptExecutor) driver)
                             .executeScript("return document.readyState").equals("complete"));
-            Thread.sleep(3000);
+            Thread.sleep(1500);
             String pageSource = webDriver.getPageSource();
             return parseWithJsoup(pageSource);
         } catch (Exception exception) {
