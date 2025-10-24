@@ -88,7 +88,8 @@ public class OzonParserManager implements ParserManager {
 
     @Override
     public boolean isSupport(String url) {
-        return url.startsWith(OZON.getDomain()) || url.startsWith(OZON_MOBILE.getDomain());
+//        return url.startsWith(OZON.getDomain()) || url.startsWith(OZON_MOBILE.getDomain());
+        return false;
     }
 
     private byte[] downloadImageWithCommonsIO(String imageUrl) throws IOException {

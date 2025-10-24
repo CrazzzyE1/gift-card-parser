@@ -9,6 +9,8 @@ public enum ProviderType {
     WILDBERRIES("https://www.wildberries.ru/catalog"),
     OZON("https://www.ozon.ru/product"),
     OZON_MOBILE("https://ozon.ru/t"),
+    LETU("https://www.letu.ru/product"),
+    GOLD_APPLE("https://goldapple.ru"),
     UNKNOWN("unknown");
     private final String domain;
     ProviderType(String domain) {
